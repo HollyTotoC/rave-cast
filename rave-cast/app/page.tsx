@@ -9,8 +9,8 @@ import { faCalendarDays, faCloudSun } from "@fortawesome/free-solid-svg-icons";
 
 function Home() {
     return (
-        <div className=" bg-neutral-200 bg-cover h-screen">
-            <div className=" flex flex-col justify-center h-full">
+        <div className=" bg-neutral-200 bg-cover">
+            <div className=" flex flex-col justify-center h-full md:h-screen">
                 {/* Input */}
                 <div className="flex flex-col items-center justify-center text-center p-12 text-black">
                     <h1 className="font-extrabold text-3xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-br to-lime-600 from-lime-400">
@@ -20,8 +20,8 @@ function Home() {
                         Votre météo pour chaque événement !
                     </h2>
                     <Input />
-                    <div className="flex flex-col md:flex-row items-start justify-evenly mt-20">
-                        <div className="w-4/12 neuro rounded-2xl p-10">
+                    <div className="flex flex-col md:flex-row items-center md:items-start gap-14 md:justify-evenly mt-20">
+                        <div className="w-11/12 md:5/12 lg:w-4/12 neuro rounded-2xl p-10">
                             <FontAwesomeIcon
                                 icon={faCloudSun}
                                 size="2xl"
@@ -38,7 +38,7 @@ function Home() {
                                 vous habiller et quoi emporter.
                             </p>
                         </div>
-                        <div className="w-4/12 neuro rounded-2xl p-10">
+                        <div className="w-11/12 md:5/12 lg:w-4/12 neuro rounded-2xl p-10">
                             <FontAwesomeIcon
                                 icon={faCalendarDays}
                                 size="2xl"

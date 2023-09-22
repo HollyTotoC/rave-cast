@@ -8,7 +8,7 @@ function Input() {
                 <input
                     type="text"
                     placeholder="Rechercher un événement"
-                    className="w-7/12 h-12 p-4 text-black focus:outline-none"
+                    className="w-11/12 md:w-7/12 h-12 p-4 text-black focus:outline-none"
                 />
                 <FontAwesomeIcon
                     icon={faMagnifyingGlass}
