@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./globals.css";
@@ -7,32 +7,31 @@ import "./globals.css";
 import Input from "./components/Input";
 import Info from "./components/Info";
 import EventForecast from "./components/EventForecast";
+import EventInfo from "./components/EventInfo";
 
 function Home() {
-    const [data, setData] = useState({});
+    const [data, setData] = useState([]);
+    const [weatherData, setWeatherData] = useState("");
     const [location, setLocation] = useState("");
     const [eventName, setEventName] = useState("");
     const [error, setError] = useState("");
     const [showList, setShowList] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
-    // const weatherApiKey = "537ed0987d034041bd0144755232209";
-    // const urlWeather = `http://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${location}&days=3&aqi=yes&alerts=yes`;
-    // const urlEvent = `https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-openagenda&q=${eventName}`;
-
-    // console.log(weatherApiKey);
-
-    const handleSearch = async (e) => {
+    const handleDynamicSearch = async (e) => {
         e.preventDefault();
         const searchUrl = `/api/searchEvent/route?q=${eventName}`;
         try {
             const response = await axios.get(searchUrl);
-            const responseData = response.data;
 
-            // Extract 'title_fr' titles from each record
-            const titles = responseData.map((record) => record.title_fr);
+            // Extract 'title_fr' and 'uid' from each record
+            const events = response.data.map((record) => ({
+                title_fr: record.title_fr,
+                uid: record.uid,
+            }));
 
-            // Now, 'titles' is an array containing all 'title_fr' titles
-            setData(titles);
+            // Now, 'events' is an array containing objects with 'title_fr' and 'uid'
+            setData(events);
             setShowList(true);
             setError("");
         } catch (err) {
@@ -41,6 +40,21 @@ function Home() {
             setShowList(false);
         }
     };
+
+    const weatherSearch = async (firstDate, lastDate) => {
+        const weatherUrl = `/api/searchWeather/route?location=${location}&firstDay=${firstDate}&lastDay=${lastDate}`;
+        try {
+            const response = await axios.get(weatherUrl);
+            setWeatherData(response.data);
+            setError("");
+        } catch (err) {
+            setError("Erreur lors de la recherche météo");
+            setWeatherData("");
+        }
+    };
+
+    console.log("location", location);
+    console.log("weather", weatherData);
 
     let content;
     let base = <Info />;
@@ -58,12 +72,12 @@ function Home() {
             </>
         );
     } else {
-        content = <EventForecast data={data} />;
+        <></>;
     }
 
     return (
         <div className=" bg-neutral-200 bg-cover">
-            <div className=" flex flex-col justify-center h-full md:h-screen">
+            <div className=" flex flex-col justify-center h-full">
                 {/* Input */}
                 <div className="flex flex-col items-center justify-center text-center p-12 text-black">
                     <h1 className="font-extrabold text-3xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-br to-lime-600 from-lime-400">
@@ -73,15 +87,24 @@ function Home() {
                         Votre météo pour chaque événement !
                     </h2>
                     <Input
-                        handleSearch={handleSearch}
+                        handleDynamicSearch={handleDynamicSearch}
                         setEventName={setEventName}
                         eventName={eventName}
                         setShowList={setShowList}
                         showList={showList}
                         data={data}
+                        setSelectedEvent={setSelectedEvent}
+                        selectedEvent={selectedEvent}
+                        setLocation={setLocation}
+                        weatherSearch={weatherSearch}
                     />
                     {content}
-                    {data.current ? <div>{data.current.temp_c}</div> : null}
+                    {selectedEvent !== null && (
+                        <>
+                            <EventInfo selectedEvent={selectedEvent} />
+                            <EventForecast weatherData={weatherData} />
+                        </>
+                    )}
                 </div>
             </div>
         </div>

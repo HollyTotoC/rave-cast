@@ -4,6 +4,39 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+:root {
+  --light-bg: #e5e5e5;
+  --light-bg-dark-shadow: #afb3bd;
+  --light-bg-light-shadow: #ffffff;
+
+  --dark-bg: #444444;
+  --dark-bg-dark-shadow: #363636;
+  --dark-bg-light-shadow: #525252;
+
+  --white: #ffffff;
+  --black: #000000;
+
+  --primary: #2979ff;
+  --primary-dark: #2962ff;
+  --primary-light: #82b1ff;
+
+  --error: #ff5252;
+  --info: #2196f3;
+  --success: #4caf50;
+  --warning: #dfa700;
+
+  --g-text-color-light: rgba(0, 0, 0, 0.93);
+  --g-text-color-disabled-light: rgba(0, 0, 0, 0.45);
+  --g-text-color-secondary-light: rgba(0, 0, 0, 0.7);
+
+  --g-text-color-dark: rgba(255, 255, 255, 0.93);
+  --g-text-color-disabled-dark: rgba(255, 255, 255, 0.45);
+  --g-text-color-secondary-dark: rgba(255, 255, 255, 0.7);
+
+  --g-bg-color-disabled-light: #dee5e8;
+  --g-bg-color-disabled-dark: #727272;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
 }
@@ -11,4 +44,12 @@ body {
 /* neuromorphism */
 .neuro {
   box-shadow:  37px 37px 74px #c2c2c2, -37px -37px 74px #ffffff;
+}
+
+.neuro-img {
+box-shadow:  28px 28px 55px #bdbdbd, -28px -28px 55px #ffffff;
+}
+
+.verifborder {
+  border: 1px solid red
 }
